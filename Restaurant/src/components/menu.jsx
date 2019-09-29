@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const MenuComponent = props => {
-  const [textState, textSetState] = useState({
+  const [textState] = useState({
     text: "Hey, I'm"
   });
 
