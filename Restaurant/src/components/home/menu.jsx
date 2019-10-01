@@ -1,6 +1,31 @@
 import React, { Component } from "react";
+import DeskComponent from "../desk";
 
 class MenuComponent extends Component {
+  state = {
+    foodItems: [
+      { id: 1, title: "Hamburgers" },
+      { id: 2, title: "Pizza" },
+      { id: 3, title: "Salads" },
+      { id: 4, title: "Appetizers" },
+      { id: 5, title: "Pasta" },
+      { id: 6, title: "Kəbab" },
+      { id: 7, title: "BBQ" },
+      { id: 8, title: "Empty" },
+      { id: 9, title: "Empty" }
+    ],
+    drinksItems: [
+      { id: 1, title: "Beer" },
+      { id: 2, title: "Empty" },
+      { id: 3, title: "Empty" }
+    ],
+    dessertItems: [
+      { id: 1, title: "Ice Cream" },
+      { id: 2, title: "Pie" },
+      { id: 3, title: "Empty" }
+    ]
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -52,7 +77,7 @@ class MenuComponent extends Component {
             role="tabpanel"
             aria-labelledby="foodTab"
           >
-            Foooooood
+            <DeskComponent menuItems={this.state.foodItems} />
           </div>
           <div
             id="drinks"
@@ -60,7 +85,7 @@ class MenuComponent extends Component {
             role="tabpanel"
             aria-labelledby="drinksTab"
           >
-            Driiiiiinks
+            <DeskComponent menuItems={this.state.drinksItems} />
           </div>
           <div
             id="dessert"
@@ -68,7 +93,7 @@ class MenuComponent extends Component {
             role="tabpanel"
             aria-labelledby="dessertTab"
           >
-            Desseeeeeert
+            <DeskComponent menuItems={this.state.dessertItems} />
           </div>
         </div>
       </React.Fragment>

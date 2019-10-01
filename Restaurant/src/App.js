@@ -1,13 +1,8 @@
 import React from "react";
 import "./App.css";
-import HeaderComponent from "./components/header";
-import MenuComponent from "./components/menu";
-import OrderComponent from "./components/order";
-
-// const style = {
-//   backgroundColor: "#2d39eb",
-//   color: "white"
-// };
+import HeaderComponent from "./components/home/header";
+import MenuComponent from "./components/home/menu";
+import OrderComponent from "./components/home/order";
 
 function App() {
   return (
