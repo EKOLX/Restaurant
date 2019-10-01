@@ -1,10 +1,6 @@
 import React from "react";
 import ItemComponent from "./item";
 
-const style = {
-  border: "1px solid red"
-};
-
 const DeskComponent = props => {
   const itemsPerRow = 4;
   const itemsCount = props.menuItems.length;
