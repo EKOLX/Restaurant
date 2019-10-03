@@ -6,17 +6,17 @@ import OrderComponent from "./components/home/order";
 
 function App() {
   return (
-    <main className="container-fluid d-flex flex-column h-100">
-      <div className="row">
-        <section className="col-md-12 border border-primary">
+    <main className="app">
+      <div className="row header">
+        <section className="col-md-12 border border-warning">
           <HeaderComponent />
         </section>
       </div>
-      <div className="row flex-fill">
-        <div className="col-md-8 border border-warning">
+      <div className="row content">
+        <div className="col-md-7 border border-warning">
           <MenuComponent name="Menu" />
         </div>
-        <div className="col-md-4 border border-success">
+        <div className="col-md-5 border border-warning">
           <OrderComponent />
         </div>
       </div>

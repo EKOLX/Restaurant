@@ -1,10 +1,19 @@
 .app {
-  background-color: #282c34;
-  color: white;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-flow: column;
+  height: 100%;
+  background-color: #2115c7;
+  color: white;
+}
+
+.app .row.header {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+}
+
+.app .row.content {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
 }

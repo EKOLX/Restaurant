@@ -6,20 +6,25 @@ export default class HeaderComponent extends Component {
   state = {
     title: "Restaurant",
     userFullName: "Elkhan Mursali",
-    currentDateTime: "02-10-2019"
+    currentDateTime: new Date().toLocaleDateString(),
+    menuTablesLabel: "Menu"
   };
 
-  logOutHandler = () => {
-    if (window.confirm("Are you sure you want to log out?")) {
-      this.setState({ component: "Header after log out" });
-      alert("You have logged out.");
-    }
+  menuTablesToggleHandler = () => {
+    if (this.state.menuTablesLabel === "Menu")
+      this.setState({ menuTablesLabel: "Tables" });
+    else this.setState({ menuTablesLabel: "Menu" });
   };
 
   render() {
+    const menuTablesClasses = ["btn", "mr-2"];
+    if (this.state.menuTablesLabel === "Menu")
+      menuTablesClasses.push("btn-primary");
+    else menuTablesClasses.push("btn-warning");
+
     return (
       <div className="row">
-        <div className="col-md-2">
+        <div className="col-md-4">
           <img
             src="https://picsum.photos/75"
             alt="avatar"
@@ -27,13 +32,21 @@ export default class HeaderComponent extends Component {
           />
           <span className="font-weight-bold">{this.state.userFullName}</span>
         </div>
-        <div className="col-md-7 p-3">
-          <h3 className="text-uppercase font-weight-bold text-center text-success">
+        <div className="col-md-4 p-3">
+          <h3 className="text-uppercase font-weight-bold text-center">
             {this.state.title}
           </h3>
         </div>
-        <div className="col-md-3 p-3 text-light">
-          <span className="bg-info mr-2 p-2">{this.state.currentDateTime}</span>
+        <div className="col-md-4 p-3 text-light">
+          <button
+            className={menuTablesClasses.join(" ")}
+            onClick={this.menuTablesToggleHandler}
+          >
+            {this.state.menuTablesLabel}
+          </button>
+          <span className="bg-secondary mr-2 p-2">
+            {this.state.currentDateTime}
+          </span>
           <a href="/" className="btn btn-success" click="onLock()">
             <FontAwesomeIcon icon={faUnlockAlt} />
           </a>
