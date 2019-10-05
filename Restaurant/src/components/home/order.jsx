@@ -17,25 +17,29 @@ export default class OrderComponent extends Component {
     note: ""
   };
 
-  onDeleteHandler = id => {
+  orderDeleteHandler = id => {
     const orders = [...this.state.orders];
     const index = orders.findIndex(o => o.id === id);
     orders.splice(index, 1);
     this.setState({ orders });
   };
 
-  onAddHandler = id => {
+  orderAddHandler = id => {
     const orders = [...this.state.orders];
     orders.find(o => o.id === id).quantity++;
     this.setState({ orders });
   };
 
-  onRemoveHandler = id => {
+  orderRemoveHandler = id => {
     let orders = [...this.state.orders];
     const order = orders.find(o => o.id === id);
     if (order.quantity > 1) order.quantity--;
 
     this.setState({ orders });
+  };
+
+  ordersClearHandler = () => {
+    this.setState({ orders: [] });
   };
 
   updateNoteText = event => {
@@ -76,7 +80,7 @@ export default class OrderComponent extends Component {
                     <FontAwesomeIcon
                       icon={faTimesCircle}
                       className="click"
-                      onClick={() => this.onDeleteHandler(o.id)}
+                      onClick={() => this.orderDeleteHandler(o.id)}
                     />
                   </td>
                   <td>{o.name}</td>
@@ -84,13 +88,13 @@ export default class OrderComponent extends Component {
                     <FontAwesomeIcon
                       icon={faPlusCircle}
                       className="click"
-                      onClick={() => this.onAddHandler(o.id)}
+                      onClick={() => this.orderAddHandler(o.id)}
                     />
                     &nbsp;{o.quantity}&nbsp;
                     <FontAwesomeIcon
                       icon={faMinusCircle}
                       className={this.getRemoveIconClass(o.id)}
-                      onClick={() => this.onRemoveHandler(o.id)}
+                      onClick={() => this.orderRemoveHandler(o.id)}
                     />
                   </td>
                   <td>{o.price}$</td>
@@ -114,7 +118,12 @@ export default class OrderComponent extends Component {
           />
         </div>
         <div className="p-2 text-right">
-          <button className="btn btn-danger mr-2">Clear</button>
+          <button
+            className="btn btn-danger mr-2"
+            onClick={this.ordersClearHandler}
+          >
+            Clear
+          </button>
           <button className="btn btn-success">Send</button>
         </div>
         <hr />
