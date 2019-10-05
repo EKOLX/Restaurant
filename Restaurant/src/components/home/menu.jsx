@@ -4,25 +4,24 @@ import DeskComponent from "../desk";
 class MenuComponent extends Component {
   state = {
     foodItems: [
-      { id: 1, title: "Hamburgers" },
-      { id: 2, title: "Pizza" },
-      { id: 3, title: "Salads" },
-      { id: 4, title: "Appetizers" },
-      { id: 5, title: "Pasta" },
-      { id: 6, title: "Kəbab" },
-      { id: 7, title: "BBQ" },
-      { id: 8, title: "Empty" },
-      { id: 9, title: "Empty" }
+      { id: 1, title: "Hamburger", price: 1.5 },
+      { id: 2, title: "Pizza", price: 10 },
+      { id: 3, title: "Salad", price: 3.5 },
+      { id: 4, title: "Appetizer", price: 5 },
+      { id: 5, title: "Pasta", price: 15 },
+      { id: 6, title: "Kəbab", price: 20 },
+      { id: 7, title: "BBQ", price: 17 }
     ],
     drinksItems: [
-      { id: 1, title: "Beer" },
-      { id: 2, title: "Empty" },
-      { id: 3, title: "Empty" }
+      { id: 21, title: "Water", price: 1 },
+      { id: 22, title: "Juice", price: 2.5 },
+      { id: 23, title: "Tea", price: 1.5 },
+      { id: 24, title: "Wine", price: 9 }
     ],
     dessertItems: [
-      { id: 1, title: "Ice Cream" },
-      { id: 2, title: "Pie" },
-      { id: 3, title: "Empty" }
+      { id: 41, title: "Ice Cream", price: 2.5 },
+      { id: 42, title: "Pie", price: 5 },
+      { id: 43, title: "Tiramisu", price: 6.5 }
     ]
   };
 

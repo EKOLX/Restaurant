@@ -30,8 +30,9 @@ const DeskComponent = props => {
       cells.push(
         <div key={itemIndex} className="col-md-3 mt-2 mb-1">
           <ItemComponent
-            title={props.menuItems[itemIndex].title}
             id={props.menuItems[itemIndex].id}
+            title={props.menuItems[itemIndex].title}
+            price={props.menuItems[itemIndex].price}
           />
         </div>
       );

@@ -33,7 +33,7 @@ export default class HeaderComponent extends Component {
           <span className="font-weight-bold">{this.state.userFullName}</span>
         </div>
         <div className="col-md-4 p-3">
-          <h3 className="text-uppercase font-weight-bold text-center">
+          <h3 className="text-uppercase font-weight-bold text-center text-success">
             {this.state.title}
           </h3>
         </div>

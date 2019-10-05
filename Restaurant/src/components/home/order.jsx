@@ -6,16 +6,32 @@ import {
   faMinusCircle
 } from "@fortawesome/free-solid-svg-icons";
 import "./home.css";
+import { orderService } from "../../services/communicationService";
 
 export default class OrderComponent extends Component {
   state = {
-    orders: [
-      { id: 1, name: "Hamburgers", quantity: 2, price: 1.5, total: 3 },
-      { id: 2, name: "Pizza", quantity: 1, price: 10, total: 10 },
-      { id: 3, name: "Salad", quantity: 1, price: 15.5, total: 15.5 }
-    ],
+    orders: [],
     note: ""
   };
+
+  //subscription;
+
+  componentDidMount() {
+    this.subscription = orderService.getOrder().subscribe(newOrder => {
+      const orders = [...this.state.orders];
+      const order = orders.find(o => o.id === newOrder.id);
+      if (order) {
+        const quantity = ++order.quantity;
+        order.total = quantity * order.price;
+      } else orders.push(newOrder);
+
+      this.setState({ orders });
+    });
+  }
+
+  componentWillUnmount() {
+    this.subscription.unsubscribe();
+  }
 
   orderDeleteHandler = id => {
     const orders = [...this.state.orders];
@@ -26,20 +42,31 @@ export default class OrderComponent extends Component {
 
   orderAddHandler = id => {
     const orders = [...this.state.orders];
-    orders.find(o => o.id === id).quantity++;
+    const order = orders.find(o => o.id === id);
+    const quantity = ++order.quantity;
+    order.total = quantity * order.price;
+
     this.setState({ orders });
   };
 
   orderRemoveHandler = id => {
     let orders = [...this.state.orders];
     const order = orders.find(o => o.id === id);
-    if (order.quantity > 1) order.quantity--;
+    if (order.quantity > 1) {
+      const quantity = --order.quantity;
+      order.total = quantity * order.price;
+    }
 
     this.setState({ orders });
   };
 
   ordersClearHandler = () => {
     this.setState({ orders: [] });
+  };
+
+  ordersSendHandler = () => {
+    this.ordersClearHandler();
+    alert("Order has been sent for preparation.");
   };
 
   updateNoteText = event => {
@@ -124,7 +151,9 @@ export default class OrderComponent extends Component {
           >
             Clear
           </button>
-          <button className="btn btn-success">Send</button>
+          <button className="btn btn-success" onClick={this.ordersSendHandler}>
+            Send
+          </button>
         </div>
         <hr />
       </div>
