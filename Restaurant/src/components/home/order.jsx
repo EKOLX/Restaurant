@@ -1,19 +1,52 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimesCircle,
+  faPlusCircle,
+  faMinusCircle
+} from "@fortawesome/free-solid-svg-icons";
+import "./home.css";
 
 export default class OrderComponent extends Component {
   state = {
     orders: [
-      { name: "Hamburgers", quantity: 2, price: 1.5, total: 3 },
-      { name: "Pizza", quantity: 1, price: 10, total: 10 },
-      { name: "Salad", quantity: 1, price: 15.5, total: 15.5 }
+      { id: 1, name: "Hamburgers", quantity: 2, price: 1.5, total: 3 },
+      { id: 2, name: "Pizza", quantity: 1, price: 10, total: 10 },
+      { id: 3, name: "Salad", quantity: 1, price: 15.5, total: 15.5 }
     ],
     note: ""
   };
 
+  onDeleteHandler = id => {
+    const orders = [...this.state.orders];
+    const index = orders.findIndex(o => o.id === id);
+    orders.splice(index, 1);
+    this.setState({ orders });
+  };
+
+  onAddHandler = id => {
+    const orders = [...this.state.orders];
+    orders.find(o => o.id === id).quantity++;
+    this.setState({ orders });
+  };
+
+  onRemoveHandler = id => {
+    let orders = [...this.state.orders];
+    const order = orders.find(o => o.id === id);
+    if (order.quantity > 1) order.quantity--;
+
+    this.setState({ orders });
+  };
+
   updateNoteText = event => {
     this.setState({ note: event.target.value });
+  };
+
+  getRemoveIconClass = id => {
+    const iconClasses = ["click"];
+    const order = this.state.orders.find(o => o.id === id);
+    if (order.quantity === 1) iconClasses.push("hidden");
+    return iconClasses.join(" ");
   };
 
   render() {
@@ -38,12 +71,28 @@ export default class OrderComponent extends Component {
             </thead>
             <tbody>
               {this.state.orders.map(o => (
-                <tr>
+                <tr key={o.id}>
                   <td>
-                    <FontAwesomeIcon icon={faTimesCircle} />
+                    <FontAwesomeIcon
+                      icon={faTimesCircle}
+                      className="click"
+                      onClick={() => this.onDeleteHandler(o.id)}
+                    />
                   </td>
                   <td>{o.name}</td>
-                  <td>{o.quantity}</td>
+                  <td>
+                    <FontAwesomeIcon
+                      icon={faPlusCircle}
+                      className="click"
+                      onClick={() => this.onAddHandler(o.id)}
+                    />
+                    &nbsp;{o.quantity}&nbsp;
+                    <FontAwesomeIcon
+                      icon={faMinusCircle}
+                      className={this.getRemoveIconClass(o.id)}
+                      onClick={() => this.onRemoveHandler(o.id)}
+                    />
+                  </td>
                   <td>{o.price}$</td>
                   <td>{o.total}$</td>
                 </tr>

@@ -29,7 +29,10 @@ const DeskComponent = props => {
     for (let col = 0; col < cellCount; col++) {
       cells.push(
         <div key={itemIndex} className="col-md-3 mt-2 mb-1">
-          <ItemComponent title={props.menuItems[itemIndex].title} />
+          <ItemComponent
+            title={props.menuItems[itemIndex].title}
+            id={props.menuItems[itemIndex].id}
+          />
         </div>
       );
       itemIndex++;
