@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "@fortawesome/react-fontawesome";
 import * as serviceWorker from "./serviceWorker";
-import App from "./App";
+import App from "../src/containers/App";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
