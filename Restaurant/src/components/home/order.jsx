@@ -6,67 +6,51 @@ import {
   faMinusCircle
 } from "@fortawesome/free-solid-svg-icons";
 import "./home.css";
-import { orderService } from "../../services/communicationService";
+import { ordersDataStorage } from "../../services/ordersDataStorage";
+import { Order } from "../../models/order.model";
 
 export default class OrderComponent extends Component {
   state = {
-    orders: [],
+    order: new Order(0, [], 0),
     note: ""
   };
 
-  //subscription;
-
   componentDidMount() {
-    this.subscription = orderService.getOrder().subscribe(newOrder => {
-      const orders = [...this.state.orders];
-      const order = orders.find(o => o.id === newOrder.id);
-      if (order) {
-        const quantity = ++order.quantity;
-        order.total = quantity * order.price;
-      } else orders.push(newOrder);
+    this.setState({ order: ordersDataStorage.getAll() });
 
-      this.setState({ orders });
+    this.ordersSub = ordersDataStorage.ordersChanged.subscribe(newOrder => {
+      this.setState({
+        order: newOrder
+      });
     });
   }
 
   componentWillUnmount() {
-    this.subscription.unsubscribe();
+    this.ordersSub.unsubscribe();
   }
 
-  orderDeleteHandler = id => {
-    const orders = [...this.state.orders];
-    const index = orders.findIndex(o => o.id === id);
-    orders.splice(index, 1);
-    this.setState({ orders });
-  };
-
-  orderAddHandler = id => {
-    const orders = [...this.state.orders];
-    const order = orders.find(o => o.id === id);
-    const quantity = ++order.quantity;
-    order.total = quantity * order.price;
-
-    this.setState({ orders });
-  };
-
   orderRemoveHandler = id => {
-    let orders = [...this.state.orders];
-    const order = orders.find(o => o.id === id);
-    if (order.quantity > 1) {
-      const quantity = --order.quantity;
-      order.total = quantity * order.price;
-    }
+    ordersDataStorage.remove(id);
+  };
 
-    this.setState({ orders });
+  orderIncreaseHandler = id => {
+    ordersDataStorage.increaseQty(id);
+  };
+
+  orderDecreaseHandler = id => {
+    ordersDataStorage.decreaseQty(id);
   };
 
   ordersClearHandler = () => {
-    this.setState({ orders: [] });
+    ordersDataStorage.clear();
   };
 
   ordersSendHandler = () => {
-    this.ordersClearHandler();
-    alert("Order has been sent for preparation.");
+    if (window.confirm("Do you want to send order for preparation?")) {
+      ordersDataStorage.updateNote(this.state.note);
+      ordersDataStorage.send();
+      this.setState({ note: "" });
+    }
   };
 
   updateNoteText = event => {
@@ -75,21 +59,15 @@ export default class OrderComponent extends Component {
 
   getRemoveIconClass = id => {
     const iconClasses = ["click"];
-    const order = this.state.orders.find(o => o.id === id);
+    const order = this.state.order.details.find(o => o.id === id);
     if (order.quantity === 1) iconClasses.push("hidden");
     return iconClasses.join(" ");
   };
 
   render() {
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    const roundTo2 = value => Math.round(value * 100) / 100;
-    const totalAmount = roundTo2(
-      this.state.orders.map(o => o.total).reduce(reducer, 0)
-    );
-
     return (
       <div className="p-2">
-        <h6>Order № 000167</h6>
+        <h6>Order № {this.state.order.id}</h6>
         <div className="table-responsive">
           <table className="table">
             <thead>
@@ -101,13 +79,13 @@ export default class OrderComponent extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.orders.map(o => (
+              {this.state.order.details.map(o => (
                 <tr key={o.id}>
                   <td>
                     <FontAwesomeIcon
                       icon={faTimesCircle}
                       className="click"
-                      onClick={() => this.orderDeleteHandler(o.id)}
+                      onClick={() => this.orderRemoveHandler(o.id)}
                     />
                   </td>
                   <td>{o.name}</td>
@@ -115,13 +93,13 @@ export default class OrderComponent extends Component {
                     <FontAwesomeIcon
                       icon={faPlusCircle}
                       className="click"
-                      onClick={() => this.orderAddHandler(o.id)}
+                      onClick={() => this.orderIncreaseHandler(o.id)}
                     />
                     &nbsp;{o.quantity}&nbsp;
                     <FontAwesomeIcon
                       icon={faMinusCircle}
                       className={this.getRemoveIconClass(o.id)}
-                      onClick={() => this.orderRemoveHandler(o.id)}
+                      onClick={() => this.orderDecreaseHandler(o.id)}
                     />
                   </td>
                   <td>{o.price}$</td>
@@ -132,7 +110,7 @@ export default class OrderComponent extends Component {
           </table>
         </div>
         <h5 className="d-block bg-info text-white text-right p-3">
-          Total {totalAmount}$
+          Total {this.state.order.totalAmount}$
         </h5>
         <div>
           <span>Special note:</span>

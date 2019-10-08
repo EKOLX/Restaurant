@@ -1,15 +1,17 @@
 import React from "react";
-import { orderService } from "../services/communicationService";
+import { OrderDetail } from "../models/order.model";
+import { ordersDataStorage } from "../services/ordersDataStorage";
 
 const ItemComponent = props => {
   const itemClickHandler = () => {
-    orderService.sendOrder({
-      id: props.id,
-      name: props.title,
-      quantity: 1,
-      price: props.price,
-      total: props.price
-    });
+    const order = new OrderDetail(
+      props.id,
+      props.title,
+      1,
+      props.price,
+      props.price
+    );
+    ordersDataStorage.addOrUpdate(order);
   };
 
   return (
