@@ -1,5 +1,6 @@
 import React from "react";
 import ItemComponent from "./item";
+import Aux from "../hoc/auxiliary";
 
 const DeskComponent = props => {
   const itemsPerRow = 4;
@@ -43,7 +44,7 @@ const DeskComponent = props => {
 
   createRows();
 
-  return <div>{desk}</div>;
+  return <Aux>{desk}</Aux>;
 };
 
 export default DeskComponent;
