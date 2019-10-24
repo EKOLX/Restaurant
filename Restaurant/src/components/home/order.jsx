@@ -5,7 +5,7 @@ import {
   faPlusCircle,
   faMinusCircle
 } from "@fortawesome/free-solid-svg-icons";
-import "./home.css";
+import "./Home.css";
 import { ordersDataStorage } from "../../services/ordersDataStorage";
 import { Order } from "../../models/order.model";
 

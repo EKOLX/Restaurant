@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import DeskComponent from "../desk";
+import withClass from "../../hoc/withClass";
+import Desk from "../Desk";
 
 class MenuComponent extends Component {
   state = {
@@ -76,7 +77,7 @@ class MenuComponent extends Component {
             role="tabpanel"
             aria-labelledby="foodTab"
           >
-            <DeskComponent menuItems={this.state.foodItems} />
+            <Desk menuItems={this.state.foodItems} />
           </div>
           <div
             id="drinks"
@@ -84,7 +85,7 @@ class MenuComponent extends Component {
             role="tabpanel"
             aria-labelledby="drinksTab"
           >
-            <DeskComponent menuItems={this.state.drinksItems} />
+            <Desk menuItems={this.state.drinksItems} />
           </div>
           <div
             id="dessert"
@@ -92,7 +93,7 @@ class MenuComponent extends Component {
             role="tabpanel"
             aria-labelledby="dessertTab"
           >
-            <DeskComponent menuItems={this.state.dessertItems} />
+            <Desk menuItems={this.state.dessertItems} />
           </div>
         </div>
       </React.Fragment>
@@ -100,4 +101,4 @@ class MenuComponent extends Component {
   }
 }
 
-export default MenuComponent;
+export default withClass(MenuComponent, "someClassName");

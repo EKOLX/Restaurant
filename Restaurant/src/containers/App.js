@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-import HeaderComponent from "../components/home/header";
-import MenuComponent from "../components/home/menu";
-import OrderComponent from "../components/home/order";
+import HeaderComponent from "../components/home/Header";
+import MenuComponent from "../components/home/Menu";
+import OrderComponent from "../components/home/Order";
 
 function App() {
   return (

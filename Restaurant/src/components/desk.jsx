@@ -1,8 +1,8 @@
 import React from "react";
-import ItemComponent from "./item";
-import Aux from "../hoc/auxiliary";
+import ItemComponent from "./Item";
+import Aux from "../hoc/Auxiliary";
 
-const DeskComponent = props => {
+const deskComponent = props => {
   const itemsPerRow = 4;
   const itemsCount = props.menuItems.length;
   const rowCount = parseInt(itemsCount / itemsPerRow) + 1;
@@ -47,4 +47,4 @@ const DeskComponent = props => {
   return <Aux>{desk}</Aux>;
 };
 
-export default DeskComponent;
+export default deskComponent;

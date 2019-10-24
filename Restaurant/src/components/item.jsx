@@ -2,7 +2,7 @@ import React from "react";
 import { OrderDetail } from "../models/order.model";
 import { ordersDataStorage } from "../services/ordersDataStorage";
 
-const ItemComponent = props => {
+const itemComponent = props => {
   const itemClickHandler = () => {
     const order = new OrderDetail(
       props.id,
@@ -25,4 +25,4 @@ const ItemComponent = props => {
   );
 };
 
-export default ItemComponent;
+export default itemComponent;
