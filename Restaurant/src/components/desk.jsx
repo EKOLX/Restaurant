@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import ItemComponent from "./Item";
 import Aux from "../hoc/Auxiliary";
 
@@ -45,6 +46,10 @@ const deskComponent = props => {
   createRows();
 
   return <Aux>{desk}</Aux>;
+};
+
+deskComponent.propTypes = {
+  menuItems: PropTypes.array
 };
 
 export default deskComponent;
