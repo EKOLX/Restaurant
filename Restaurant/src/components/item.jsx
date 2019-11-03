@@ -1,6 +1,7 @@
 import React from "react";
 import { OrderDetail } from "../models/order.model";
 import { ordersDataStorage } from "../services/ordersDataStorage";
+import "./Item.css";
 
 const itemComponent = props => {
   const itemClickHandler = () => {
@@ -17,7 +18,7 @@ const itemComponent = props => {
   return (
     <button
       type="button"
-      className="btn btn-info btn-block"
+      className="btn btn-info btn-block item"
       onClick={itemClickHandler}
     >
       {props.title}

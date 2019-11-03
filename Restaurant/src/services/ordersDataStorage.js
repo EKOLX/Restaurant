@@ -18,9 +18,9 @@ const copyOrder = () => {
 
 const updateOrder = () => {
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  const roundTo2 = value => Math.round(value * 100) / 100;
+  //const roundTo2 = value => Math.round(value * 100) / 100;
   const totalAmount = order.details.map(d => d.total).reduce(reducer, 0);
-  order.totalAmount = roundTo2(totalAmount);
+  order.totalAmount = totalAmount.toFixed(2);
 };
 
 export const ordersDataStorage = {
