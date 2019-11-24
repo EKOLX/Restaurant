@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -7,20 +8,30 @@ export default class HeaderComponent extends Component {
     title: "Restaurant",
     userFullName: "Elkhan Mursali",
     currentDateTime: new Date().toLocaleDateString(),
-    menuTablesLabel: "Menu"
+    menuTablesLabel: "Tables",
+    link: "order"
   };
 
   menuTablesToggleHandler = () => {
-    if (this.state.menuTablesLabel === "Menu")
-      this.setState({ menuTablesLabel: "Tables" });
-    else this.setState({ menuTablesLabel: "Menu" });
+    if (this.state.link === "tables")
+      this.setState(() => {
+        return { menuTablesLabel: "Tables", link: "order" };
+      });
+    else
+      this.setState(() => {
+        return { menuTablesLabel: "Menu", link: "tables" };
+      });
   };
 
   render() {
     const menuTablesClasses = ["btn", "mr-2"];
-    if (this.state.menuTablesLabel === "Menu")
-      menuTablesClasses.push("btn-primary");
-    else menuTablesClasses.push("btn-warning");
+    const linkParams = { pathname: this.state.link };
+
+    if (this.state.link === "order") {
+      menuTablesClasses.push("btn-warning");
+      linkParams.search = "?id=12345";
+      linkParams.hash = "#menu";
+    } else menuTablesClasses.push("btn-primary");
 
     return (
       <div className="row">
@@ -38,12 +49,13 @@ export default class HeaderComponent extends Component {
           </h3>
         </div>
         <div className="col-md-4 p-3 text-light">
-          <button
+          <Link
+            to={linkParams}
             className={menuTablesClasses.join(" ")}
             onClick={this.menuTablesToggleHandler}
           >
             {this.state.menuTablesLabel}
-          </button>
+          </Link>
           <span className="bg-secondary mr-2 p-2">
             {this.state.currentDateTime}
           </span>
