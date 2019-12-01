@@ -9,29 +9,44 @@ export default class HeaderComponent extends Component {
     userFullName: "Elkhan Mursali",
     currentDateTime: new Date().toLocaleDateString(),
     menuTablesLabel: "Tables",
-    link: "order"
+    link: "order",
+    linkParams: { pathname: "order" }
   };
 
   menuTablesToggleHandler = () => {
-    if (this.state.link === "tables")
-      this.setState(() => {
-        return { menuTablesLabel: "Tables", link: "order" };
-      });
-    else
-      this.setState(() => {
-        return { menuTablesLabel: "Menu", link: "tables" };
-      });
+    this.setState((prevState, props) => {
+      let newLink = "",
+        newMenuTablesLabel = "";
+      let newLinkParams = {};
+
+      if (prevState.link === "tables") {
+        newLink = "order";
+        newLinkParams = {
+          pathname: newLink,
+          search: "?id=12345",
+          hash: "#menu"
+        };
+        newMenuTablesLabel = "Tables";
+      } else {
+        newLink = "tables";
+        newLinkParams = newLink;
+        newMenuTablesLabel = "Menu";
+      }
+
+      return {
+        menuTablesLabel: newMenuTablesLabel,
+        link: newLink,
+        linkParams: newLinkParams
+      };
+    });
   };
 
   render() {
     const menuTablesClasses = ["btn", "mr-2"];
-    const linkParams = { pathname: this.state.link };
+    if (this.state.link === "order") menuTablesClasses.push("btn-warning");
+    else menuTablesClasses.push("btn-primary");
 
-    if (this.state.link === "order") {
-      menuTablesClasses.push("btn-warning");
-      linkParams.search = "?id=12345";
-      linkParams.hash = "#menu";
-    } else menuTablesClasses.push("btn-primary");
+    console.log(this.state, this.state.linkParams);
 
     return (
       <div className="row">
@@ -50,7 +65,7 @@ export default class HeaderComponent extends Component {
         </div>
         <div className="col-md-4 p-3 text-light">
           <Link
-            to={linkParams}
+            to={this.state.linkParams}
             className={menuTablesClasses.join(" ")}
             onClick={this.menuTablesToggleHandler}
           >
