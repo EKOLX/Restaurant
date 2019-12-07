@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 
 import "./App.css";
 import Aux from "../hoc/Auxiliary";
@@ -17,22 +17,24 @@ function App() {
           </section>
         </div>
         <div className="row content">
-          <Route path="/" exact render={() => <h1>Coming soon...</h1>} />
-          <Route path="/tables" render={() => <h1>Coming soon...</h1>} />
-          <Route
-            path="/order"
-            render={() => (
-              <Aux>
-                <div className="col-md-7 border border-warning">
-                  <MenuComponent name="Menu" />
-                </div>
-                <div className="col-md-5 border border-warning">
-                  <OrderComponent />
-                </div>
-              </Aux>
-            )}
-          />
-          <Redirect from="/" to="/order" />
+          <Switch>
+            <Route path="/" exact render={() => <h1>Coming soon...</h1>} />
+            <Route path="/tables" render={() => <h1>Coming soon...</h1>} />
+            <Route
+              path="/order"
+              render={() => (
+                <Aux>
+                  <div className="col-md-7 border border-warning">
+                    <MenuComponent name="Menu" />
+                  </div>
+                  <div className="col-md-5 border border-warning">
+                    <OrderComponent />
+                  </div>
+                </Aux>
+              )}
+            />
+            <Redirect from="/" to="/order" />
+          </Switch>
         </div>
       </main>
     </BrowserRouter>

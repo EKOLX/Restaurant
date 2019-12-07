@@ -9,44 +9,26 @@ export default class HeaderComponent extends Component {
     userFullName: "Elkhan Mursali",
     currentDateTime: new Date().toLocaleDateString(),
     menuTablesLabel: "Tables",
-    link: "order",
     linkParams: { pathname: "order" }
   };
 
   menuTablesToggleHandler = () => {
-    this.setState((prevState, props) => {
-      let newLink = "",
-        newMenuTablesLabel = "";
-      let newLinkParams = {};
-
-      if (prevState.link === "tables") {
-        newLink = "order";
-        newLinkParams = {
-          pathname: newLink,
-          search: "?id=12345",
-          hash: "#menu"
-        };
-        newMenuTablesLabel = "Tables";
-      } else {
-        newLink = "tables";
-        newLinkParams = newLink;
-        newMenuTablesLabel = "Menu";
-      }
-
-      return {
-        menuTablesLabel: newMenuTablesLabel,
-        link: newLink,
-        linkParams: newLinkParams
-      };
-    });
+    if (this.state.menuTablesLabel === "Tables") {
+      this.setState({ menuTablesLabel: "Menu" });
+      //this.props.history.replace("/tables");
+      this.setState({ linkParams: { pathname: "tables" } });
+    } else {
+      this.setState({ menuTablesLabel: "Tables" });
+      //this.props.history.replace("/order");
+      this.setState({ linkParams: { pathname: "order" } });
+    }
   };
 
   render() {
     const menuTablesClasses = ["btn", "mr-2"];
-    if (this.state.link === "order") menuTablesClasses.push("btn-warning");
+    if (this.state.menuTablesLabel === "Tables")
+      menuTablesClasses.push("btn-warning");
     else menuTablesClasses.push("btn-primary");
-
-    console.log(this.state, this.state.linkParams);
 
     return (
       <div className="row">
