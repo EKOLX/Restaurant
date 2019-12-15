@@ -9,18 +9,18 @@ export default class HeaderComponent extends Component {
     userFullName: "Elkhan Mursali",
     currentDateTime: new Date().toLocaleDateString(),
     menuTablesLabel: "Tables",
-    linkParams: { pathname: "order" }
+    linkParams: { pathname: "tables" }
   };
 
   menuTablesToggleHandler = () => {
     if (this.state.menuTablesLabel === "Tables") {
       this.setState({ menuTablesLabel: "Menu" });
       //this.props.history.replace("/tables");
-      this.setState({ linkParams: { pathname: "tables" } });
+      this.setState({ linkParams: { pathname: "order" } });
     } else {
       this.setState({ menuTablesLabel: "Tables" });
       //this.props.history.replace("/order");
-      this.setState({ linkParams: { pathname: "order" } });
+      this.setState({ linkParams: { pathname: "tables" } });
     }
   };
 

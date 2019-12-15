@@ -18,7 +18,6 @@ function App() {
         </div>
         <div className="row content">
           <Switch>
-            <Route path="/" exact render={() => <h1>Coming soon...</h1>} />
             <Route path="/tables" render={() => <h1>Coming soon...</h1>} />
             <Route
               path="/order"
