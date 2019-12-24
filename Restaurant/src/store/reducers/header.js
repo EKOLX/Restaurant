@@ -1,9 +1,6 @@
-import * as actionTypes from "./actions";
+import * as actionTypes from "../actions";
 
 const initialState = {
-  title: "Restaurant",
-  userFullName: "Elkhan Mursali",
-  currentDateTime: new Date().toLocaleDateString(),
   menuTablesLabel: "Tables",
   linkParams: { pathname: "tables" }
 };

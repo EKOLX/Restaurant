@@ -9,9 +9,7 @@ class HeaderComponent extends Component {
   state = {
     title: "Restaurant",
     userFullName: "Elkhan Mursali",
-    currentDateTime: new Date().toLocaleDateString(),
-    menuTablesLabel: "Tables",
-    linkParams: { pathname: "tables" }
+    currentDateTime: new Date().toLocaleDateString()
   };
 
   render() {
@@ -32,7 +30,7 @@ class HeaderComponent extends Component {
         </div>
         <div className="col-md-4 p-3">
           <h3 className="text-uppercase font-weight-bold text-center text-success">
-            {this.props.title}
+            {this.state.title}
           </h3>
         </div>
         <div className="col-md-4 p-3 text-light">
@@ -57,9 +55,8 @@ class HeaderComponent extends Component {
 
 const mapStateToProps = state => {
   return {
-    title: state.title,
-    menuTablesLabel: state.menuTablesLabel,
-    linkParams: state.linkParams
+    menuTablesLabel: state.header.menuTablesLabel,
+    linkParams: state.header.linkParams
   };
 };
 
